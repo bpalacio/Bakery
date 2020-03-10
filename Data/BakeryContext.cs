@@ -13,7 +13,7 @@ namespace Bakery.Data
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(@"Data source= wwwroot/data/Bakery.db");
+            optionsBuilder.UseSqlite(@"Data source= app/wwwroot/data/Bakery.db");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
