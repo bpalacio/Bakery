@@ -7,5 +7,5 @@ spec:
   - port: 3306
   selector:
     app: mysql
-    database_service: mysql
+    database-service: mysql
   clusterIP: None

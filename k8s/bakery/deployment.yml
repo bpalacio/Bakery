@@ -4,19 +4,37 @@ metadata:
   name: bakery-deployment
   labels:
     app: bakery
+    tier: frontend
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: bakery
+      tier: frontend
   template:
     metadata:
       labels:
         app: bakery
-        database_service: mysql
+        tier: frontend
     spec:
       containers:
       - name: bakery
         image: smontecinos695/bakery:0.0.1
+        env:
+        - name: EMAIL_USER
+          valueFrom:
+            secretKeyRef:
+              name: email-credentials
+              key:  user
+        - name: EMAIL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: email-credentials
+              key:  password
+        - name: ConnectionStrings__DefaultConnection
+          valueFrom:
+            secretKeyRef:
+              name: db-credentials
+              key:  connection-string
         ports:
         - containerPort: 5000

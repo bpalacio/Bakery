@@ -6,34 +6,36 @@ spec:
   selector:
     matchLabels:
       app: mysql
+      database-service: mysql
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
         app: mysql
+        database-service: mysql
     spec:
       containers:
-      - image: mysql:5.7
-        name: mysql
+      - name: mysql
+        image: mysql:5.7
         env:
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
               name: db-credentials
-              key:  db-root-password
+              key:  root-password
         - name: MYSQL_DATABASE
           value: bakery
         - name: MYSQL_USER
           valueFrom:
             secretKeyRef:
               name: db-credentials
-              key:  db-user
+              key:  user
         - name: MYSQL_PASSWORD
           valueFrom:
             secretKeyRef:
               name: db-credentials
-              key:  db-password
+              key:  password
         ports:
         - containerPort: 3306
           name: mysql
