@@ -8,13 +8,13 @@ using Bakery.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace Bakery.Pages
-{   
-    
+{
+
     public class OrderModel : PageModel
     {
         //inject Bakery Context
         private BakeryContext db;
-        
+
         public OrderModel(BakeryContext db) => this.db = db;
 
         [BindProperty(SupportsGet = true)]
@@ -41,7 +41,7 @@ namespace Bakery.Pages
 
             if (ModelState.IsValid)
             {
-                
+
                 var body = $@"<p>Thank you, we have received your order for {Order.OrderQuantity} unit(s) of {Product.Name}!</p>
                 <p>Your address is: <br/>{Order.OrderShipping.Replace("\n", "<br/>")}</p>
                 Your total is ${Product.Price * Order.OrderQuantity}.<br/>
@@ -51,7 +51,7 @@ namespace Bakery.Pages
                 {
                     DeliveryMethod = SmtpDeliveryMethod.Network,
                     UseDefaultCredentials = false,
-                    Credentials = new NetworkCredential("billypalacio25@gmail.com", "masquinita#174"),
+                    Credentials = new NetworkCredential(System.Environment.GetEnvironmentVariable("EMAIL_USER"), System.Environment.GetEnvironmentVariable("EMAIL_PASSWORD")),
                     Port = 587,
                     Host = "smtp.gmail.com",
                     EnableSsl = true,
@@ -67,8 +67,8 @@ namespace Bakery.Pages
                 await smtp.SendMailAsync(message);
 
 
-                /*Insert order*/        
-                
+                /*Insert order*/
+
                 var entry = db.Orders.Add(new Order());
                 entry.CurrentValues.SetValues(Order);
                 await db.SaveChangesAsync();
