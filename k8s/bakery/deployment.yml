@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: bakery
-        image: smontecinos695/bakery:0.0.1
+        image: smontecinos695/bakery:0.0.2
         env:
         - name: EMAIL_USER
           valueFrom:
@@ -36,5 +36,7 @@ spec:
             secretKeyRef:
               name: db-credentials
               key:  connection-string
+        - name: ASPNETCORE_ENVIRONMENT
+          value: Development
         ports:
         - containerPort: 5000
