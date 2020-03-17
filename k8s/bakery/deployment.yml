@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
       - name: bakery
-        image: bakery:0.0.1
+        image: smontecinos695/bakery:0.0.1
         ports:
         - containerPort: 5000
