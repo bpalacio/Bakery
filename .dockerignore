@@ -2,3 +2,6 @@ bin/
 obj/
 out/
 TestResults/
+.env
+.env.example
+secrets
