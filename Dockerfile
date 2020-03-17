@@ -15,5 +15,5 @@ EXPOSE 5000/tcp
 EXPOSE 5001/tcp
 
 ENV ASPNETCORE_URLS http://*:5000
-
-ENTRYPOINT ["dotnet", "releases/Bakery.dll"]
+WORKDIR "releases"
+ENTRYPOINT ["dotnet", "Bakery.dll"]
