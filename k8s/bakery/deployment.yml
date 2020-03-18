@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bakery-deployment
+  name: bakery
   labels:
     app: bakery
     tier: frontend
@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: bakery
-        image: smontecinos695/bakery:0.0.3
+        image: smontecinos695/bakery:0.0.4
         env:
         - name: EMAIL_USER
           valueFrom:
@@ -38,5 +38,7 @@ spec:
               key:  connection-string
         - name: ASPNETCORE_ENVIRONMENT
           value: Development
+        - name: EMAIL_DEFAULT_TRANSPORT
+          value: smtp
         ports:
         - containerPort: 5000
